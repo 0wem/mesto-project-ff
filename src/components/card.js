@@ -1,4 +1,4 @@
-export function createCard(dataCard, delCallback, handleLike, handleImageClick) {
+export function createCard(dataCard, deleteCard, handleLike, handleImageClick) {
   const cardTemplate = document.querySelector("#card-template").content;
   const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
   const cardTitle = cardElement.querySelector(".card__title");
@@ -7,19 +7,17 @@ export function createCard(dataCard, delCallback, handleLike, handleImageClick) 
   const likeButton = cardElement.querySelector(".card__like-button");
 
 
-  cardImage.src = dataCard.link;
-  cardImage.alt = dataCard.name;
-  cardTitle.textContent = dataCard.name;
+  cardImage.src= dataCard.link;
+  cardImage.alt= dataCard.name;
+  cardTitle.textContent= dataCard.name;
 
   deleteButton.addEventListener("click", () => {
-    delCallback(cardElement);
+    deleteCard(cardElement);
   });
-
 
   likeButton.addEventListener("click", () => {
     handleLike(likeButton);
   });
-
 
   if (handleImageClick) {
     cardImage.addEventListener("click", () => {
@@ -30,7 +28,10 @@ export function createCard(dataCard, delCallback, handleLike, handleImageClick) 
   return cardElement;
 }
 
-
 export function handleLikeButton(likeBtn) {
   likeBtn.classList.toggle('card__like-button_is-active');
+}
+
+export function deleteCard(cardElement) {
+  cardElement.remove();
 }
