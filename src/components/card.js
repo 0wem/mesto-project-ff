@@ -1,5 +1,5 @@
 import { deleteCardServer, addLike, removeLike } from "./api.js";
-import { openModal } from "./modal.js"; // убедитесь, что импортируете openModal
+import { openModal } from "./modal.js"; 
 
 export const createCards = (
   cardData,
@@ -17,20 +17,17 @@ export const createCards = (
   const likeCount = cardElement.querySelector(".card__likes-counter");
   const deleteButton = cardElement.querySelector(".card__delete-button");
 
-  // Заполняем карточку
   cardImage.src = cardData.link;
   cardImage.alt = cardData.name;
   cardTitle.textContent = cardData.name;
   likeCount.textContent = cardData.likes ? cardData.likes.length : 0;
 
-  // Проверка, лайк поставил текущий пользователь
   const likesArray = Array.isArray(cardData.likes) ? cardData.likes : [];
   const isLiked = likesArray.some((like) => like._id === userId);
   if (isLiked) {
     likeButton.classList.add("card__like-button_is-active");
   }
 
-  // Проверка владельца
   const isOwner =
     cardData.owner && cardData.owner._id ? cardData.owner._id === userId : false;
   if (!isOwner) {
@@ -41,18 +38,18 @@ export const createCards = (
     });
   }
 
-  // Обработчик лайка
+  
   likeButton.addEventListener("click", () => {
     handleLikeCard(likeButton, cardData._id, likeCount);
   });
 
-  // Обработчик клика по изображению - вызывает handleImageView
+  
   cardImage.addEventListener("click", () => handleImageView(cardData));
 
   return cardElement;
 };
 
-// Реализация handleImageView
+
 export const handleImageView = (cardData) => {
   const popupImage = document.querySelector('.popup_type_image');
   const popupImg = popupImage.querySelector('.popup__image');

@@ -1,4 +1,4 @@
-import "../styles/index.css"; // путь подкорректируйте под свой проект
+import "../styles/index.css";
 import { openModal, closeModal } from "./modal.js";
 import { createCards, deleteCards, handleLikeCard, handleImageView } from "./card.js";
 import { enableValidation, clearValidation } from "./validation.js";
@@ -53,7 +53,7 @@ let currentUserId = null;
 
 enableValidation(validationConfig);
 
-// Загрузка данных при старте
+
 const loadPageData = () => {
   Promise.all([getUserInfo(), getInitialCards()])
     .then(([userData, cards]) => {
@@ -80,7 +80,7 @@ const loadPageData = () => {
 
 document.addEventListener("DOMContentLoaded", loadPageData);
 
-// Открытие попапов
+
 buttons.editProfile?.addEventListener("click", () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileDescription.textContent;
@@ -100,7 +100,7 @@ buttons.avatar?.addEventListener("click", () => {
   openModal(avatarPopup);
 });
 
-// Закрытие попапов
+
 document.querySelectorAll(".popup").forEach((popup) => {
   popup.addEventListener("mousedown", (evt) => {
     if (
@@ -112,7 +112,7 @@ document.querySelectorAll(".popup").forEach((popup) => {
   });
 });
 
-// Обработка формы редактирования профиля
+
 formEditProfile.addEventListener("submit", (evt) => {
   evt.preventDefault();
   handleSubmit(
@@ -132,7 +132,7 @@ formEditProfile.addEventListener("submit", (evt) => {
     .catch((err) => console.error("Ошибка при обновлении профиля:", err));
 });
 
-// Обработка формы добавления новой карточки
+
 newCardForm.addEventListener("submit", (evt) => {
   evt.preventDefault();
   handleSubmit(
@@ -141,9 +141,6 @@ newCardForm.addEventListener("submit", (evt) => {
     () => addNewCard({ name: cardNameInput.value, link: cardLinkInput.value })
   )
     .then((newCard) => {
-      // Проверяем структуру ответа
-      // В большинстве случаев API возвращает объект карточки
-      // создаем DOM-элемент
       const cardElement = createCards(
         newCard,
         deleteCards,
@@ -158,7 +155,7 @@ newCardForm.addEventListener("submit", (evt) => {
     .catch((err) => console.error("Ошибка при добавлении карточки:", err));
 });
 
-// Обработка смены аватара
+
 avatarForm.addEventListener("submit", (evt) => {
   evt.preventDefault();
   handleSubmit(
@@ -174,7 +171,7 @@ avatarForm.addEventListener("submit", (evt) => {
     .catch((err) => console.error("Ошибка при смене аватара:", err));
 });
 
-// Общая функция обработки отправки
+
 function handleSubmit(button, loadingText, action) {
   const originalText = button.textContent;
   button.textContent = loadingText;
